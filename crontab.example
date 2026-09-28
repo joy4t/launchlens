@@ -1,0 +1,14 @@
+# LaunchLens: one run per day at 12:15 local time (IST on the author's machine).
+# Adjust the hour if the host machine is not on IST.
+#
+# Replace <hermes-run-command> with whatever your Hermes install uses to run a
+# skill by name. This skill was built against Hermes v0.21.0.
+#
+# Output is redirected to a log rather than /dev/null so a failed run leaves a trace.
+# cron.log is gitignored.
+#
+# If the host is WSL rather than native Linux, cron only fires while the WSL
+# instance is running. A machine that is off or asleep at 12:15 skips the run
+# silently.
+
+15 12 * * * cd $HOME/.hermes/skills/launchlens && <hermes-run-command> launchlens >> $HOME/.hermes/skills/launchlens/cron.log 2>&1
