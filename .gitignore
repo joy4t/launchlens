@@ -1,0 +1,4 @@
+cron.log
+processed.log
+refusals.log
+*.log
