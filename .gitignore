@@ -1,4 +1,24 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# runtime state and logs
 cron.log
 processed.log
 refusals.log
 *.log
+logs/
+
+# local output
+output/
+outputs/
+cache/
+.cache/
+
+# python, os, editor
+__pycache__/
+*.pyc
+.DS_Store
+.vscode/
+.idea/

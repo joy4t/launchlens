@@ -25,13 +25,11 @@ LaunchLens runs as a Hermes v0.21.0 skill under:
 
 `~/.hermes/skills/launchlens/`
 
-It is intended to be triggered by cron.
+It is triggered by Hermes's own cron system, not the OS crontab, registered as a scheduled job (`15 12 * * *`, IST) that invokes the `launchlens` skill. See [`hermes-cron-job.example.json`](hermes-cron-job.example.json) for the job definition, and [`architecture.md`](architecture.md) for the full runtime path.
 
-See [`crontab.example`](crontab.example) for the cron setup.
+The host machine runs Ubuntu under WSL2. Hermes's scheduler only fires while that WSL instance is running, so the job is skipped on any day the machine is off, asleep, or WSL has not been started.
 
-See [`architecture.md`](architecture.md) for the full runtime path.
-
-Each run discovers candidates, checks previous logs, selects one launch, gathers evidence only for that launch, applies the sufficiency gate, and produces exactly one outcome.
+Each run discovers candidates, checks previous logs, selects one launch, gathers evidence only for that launch, applies the sufficiency gate, and produces exactly one outcome. The final message is delivered to the author's Telegram through Hermes; the skill itself has no way to confirm that delivery succeeded, only that the output was produced and logged.
 
 ## Four run outcomes
 
@@ -63,10 +61,10 @@ LaunchLens won 1st place in the Individual track of the Ayuda Hermes Agent Hacka
 
 ## Limitations
 
-The version that won the hackathon ran its refusal check before gathering evidence. That meant the refusal decision was made too early.
+The version that won the hackathon ran its refusal check before gathering evidence, based on how promising a listing looked rather than on what the sources actually confirmed. In production this showed up directly: the Doberman run (Sept 6) shipped a full teardown with monetization marked UNKNOWN, because nothing in the pipeline required that field to be filled before sending.
 
-The current `SKILL.md` moves the sufficiency check to after evidence gathering.
+The current `SKILL.md` moves the sufficiency check to after evidence gathering (Step 6), and requires at least 3 of 4 GTM fields to be observed before a teardown goes out. The Doberman case would now produce a refusal, not a teardown, assuming no other field made up the gap.
 
-The corrected version has not yet been run end to end, so the new gate is not yet battle-tested.
+The corrected gate has not yet fired in production. No run has hit that path end to end, so it is reviewable in the skill file but not yet demonstrated.
 
 The project also depends on the availability and content of external sources such as Product Hunt, Hacker News, and the selected product's own pages. If those sources cannot provide enough evidence, refusal is the intended result.

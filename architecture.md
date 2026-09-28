@@ -5,7 +5,7 @@ decides between a teardown and a refusal.
 
 ```mermaid
 flowchart TD
-    A["Cron trigger, 12:15 IST"] --> B["Hermes invokes LaunchLens skill"]
+    A["Hermes cron job, 12:15 IST"] --> B["Hermes invokes LaunchLens skill"]
     B --> C["Step 1: Product Hunt leaderboard<br/>today, then yesterday, then weekly"]
     C -->|"every source failed"| F1["RUN FAILED message"]
     C -->|"top 5 candidates"| D["Step 2: read processed.log and refusals.log<br/>drop seen launches, recall memory notes"]
@@ -32,5 +32,5 @@ Notes:
   It is set to 3 of 4 fields.
 - Logging happens before the final message because the skill cannot observe delivery.
   A log line means the output was produced, not that it arrived.
-- The cron node reflects the author's own machine. Timing and invocation are in
-  `crontab.example`.
+- The cron node reflects the author's own machine. The job definition is in
+  `hermes-cron-job.example.json`.

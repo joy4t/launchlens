@@ -106,7 +106,7 @@ score from Step 1 for Reaction. Mark Reaction UNKNOWN only if neither is availab
 Fetch the product's own landing page, and its pricing page if one is linked. For each
 of Audience, Hook, Channel, Pricing move, record a value only if it is stated on a page
 you fetched (the Product Hunt listing, Hacker News, or the product's own pages), and
-note which source. Otherwise mark it UNKNOWN.
+note which source. Otherwise mark it UNKNOWN. Do not fill gaps from general knowledge about the company or similar products.
 
 ### Step 6: Sufficiency gate
 
@@ -132,6 +132,8 @@ Write the TEARDOWN or the REFUSAL using the matching template below.
 - After a TEARDOWN only: use the memory tool to update one curated note if a genuinely
   reusable GTM lesson emerged. Do not store launch names.
 - Then emit the final message: the output from Step 7 exactly as composed, nothing else.
+- If a log write failed, add one last line: LOG WRITE FAILED: [product] was not
+  recorded and may be repeated.
 
 Logging happens before the final message because this skill cannot observe delivery.
 A log line means the output was produced, not that it was delivered.

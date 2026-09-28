@@ -1,0 +1,9 @@
+{
+  "name": "LaunchLens 1215PM",
+  "skill": "launchlens",
+  "schedule": {
+    "kind": "cron",
+    "expr": "15 12 * * *",
+    "display": "15 12 * * *"
+  }
+}
